@@ -1,15 +1,17 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect, useEffect } from 'react';
 import { View, Text, StyleSheet, Platform, FlatList } from 'react-native';
 import CustomeHeaderButton from "../components/headerButton";
 import {
     HeaderButtons,
     Item
 } from 'react-navigation-header-buttons';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PlaceItem from "../components/PlaceItem";
+import { loadPlaces } from '../store/action/PlacesAction';
 
 
 const PlaceListScreen = props => {
+    const dispatch = useDispatch();
     const places = useSelector(state => {
         return state.places.places;
     });
@@ -33,6 +35,10 @@ const PlaceListScreen = props => {
         });
     }, [props.navigation, submitHandler]);
 
+    useEffect(() => {
+        dispatch(loadPlaces());
+    }, [dispatch]);
+
     if (places.length === 0) {
         return (
             <View style={styles.warning}>
@@ -52,7 +58,7 @@ const PlaceListScreen = props => {
                             title: itemData.item.title, id: itemData.item.id
                         });
                     }
-                } image={itemData.item.img} />}
+                } image={itemData.item.imageUri} />}
         />
     );
 }
