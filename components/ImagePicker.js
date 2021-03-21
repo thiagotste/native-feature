@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Button, Text, StyleSheet, Image, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from "expo-permissions";
@@ -8,17 +8,17 @@ const ImgPicker = props => {
     const [pickedImage, setPickedImage] = useState();
     const verifyPermisions = async () => {
         const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.MEDIA_LIBRARY);
-        if(result.status !== 'granted') {
+        if (result.status !== 'granted') {
             Alert.alert('Insuficiente permissão',
-            'Você precisa dar permissão para usar a camera.',
-            [{text: 'Okay'}]);
+                'Você precisa dar permissão para usar a camera.',
+                [{ text: 'Okay' }]);
             return false;
         }
         return true;
     };
     const takeImageHandler = async () => {
         const hasPermission = await verifyPermisions();
-        if(!hasPermission ) {
+        if (!hasPermission) {
             return;
         }
         const image = await ImagePicker.launchCameraAsync({
