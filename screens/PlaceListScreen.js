@@ -58,7 +58,7 @@ const PlaceListScreen = props => {
                             title: itemData.item.title, id: itemData.item.id
                         });
                     }
-                } image={itemData.item.imageUri} />}
+                } image={itemData.item.imageUri} address={itemData.item.address} />}
         />
     );
 }
